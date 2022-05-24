@@ -1,0 +1,80 @@
+Assignment 1 - Consider student database of N students. Make use of a hash table implementation to quickly look up student's name and roll no. Implement collision handling techniques- 1. linear probing 2. linear probing with chaining without replacement 3. linear probing with chaining with replacement  
+
+
+
+Algorithm
+For Insert:
+
+Begin
+   Declare Function Insert(int k, int v)
+      int hash_val = HashFunc(k)
+      intialize init = -1
+      intialize delindex = -1
+      while (hash_val != init and
+      (ht[hash_val]==DelNode::getNode() or ht[hash_val]
+         != NULL and ht[hash_val]->k != k))
+         if (init == -1)
+            init = hash_val
+         if (ht[hash_val] == DelNode::getNode())
+            delindex = hash_val
+         hash_val = HashFunc(hash_val + 1)
+      if (ht[hash_val] == NULL || hash_val == init)
+         if(delindex != -1)
+            ht[delindex] = new HashTable(k, v)
+         else
+            ht[hash_val] = new HashTable(k, v)
+      if(init != hash_val)
+         if (ht[hash_val] != DelNode::getNode())
+            if (ht[hash_val] != NULL)
+               if (ht[hash_val]->k== k)
+                  ht[hash_val]->v = v
+         else
+            ht[hash_val] = new HashTable(k, v)
+End.
+For Search a key:
+
+Begin
+   Declare Function SearchKey(int k)
+      int hash_val = HashFunc(k)
+      int init = -1
+      while (hash_val != init and (ht[hash_val]
+         == DelNode::getNode() or ht[hash_val]
+         != NULL and ht[hash_val]->k!= k))
+            if (init == -1)
+               init = hash_val
+            hash_val = HashFunc(hash_val + 1)
+      if (ht[hash_val] == NULL or hash_val == init)
+         return -1
+      else
+         return ht[hash_val]->v
+End.
+For Delete:
+
+Begin
+   Declare Function Remove(int k)
+      int hash_val = HashFunc(k)
+      intialize init = -1
+      while (hash_val != init and (ht[hash_val]
+         == DelNode::getNode() or ht[hash_val]
+         != NULL and ht[hash_val]->k!= k))
+         if (init == -1)
+            init = hash_val
+         hash_val = HashFunc(hash_val + 1)
+      if (hash_val != init && ht[hash_val] != NULL)
+         delete ht[hash_val]
+         ht[hash_val] = DelNode::getNode()
+End
+
+------------------------------------------------------------
+
+Assignment 2 - Huffman Coding
+
+create a priority queue Q consisting of each unique character.
+sort then in ascending order of their frequencies.
+for all the unique characters:
+    create a newNode
+    extract minimum value from Q and assign it to leftChild of newNode
+    extract minimum value from Q and assign it to rightChild of newNode
+    calculate the sum of these two minimum values and assign it to the value of newNode
+    insert this newNode into the tree
+return rootNode
